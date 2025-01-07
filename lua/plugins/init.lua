@@ -116,6 +116,7 @@ return {
     cmd = { "NvimTreeToggle", "NvimTreeFocus" },
     opts = function()
       local conf = require "nvchad.configs.nvimtree"
+      conf.view.width = vim.o.columns
       conf.actions.open_file.quit_on_open = true
       conf.renderer.icons.glyphs.git = {
         unstaged = "󰏫",

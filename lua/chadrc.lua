@@ -4,8 +4,12 @@
 ---@type ChadrcConfig
 local M = {}
 
+M.base46 = {
+	theme = "gruvbox",
+}
+
 M.ui = {
-	theme = "onedark",
+	theme = "gruvbox",
 
   statusline = {
     theme = "minimal",
