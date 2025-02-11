@@ -15,8 +15,8 @@ return {
 
 
   {
-      "lukas-reineke/indent-blankline.nvim",
-      enabled = false
+    "lukas-reineke/indent-blankline.nvim",
+    enabled = false
   },
 
   {
@@ -24,10 +24,30 @@ return {
     opts = function()
       local conf = require "nvchad.configs.telescope"
       local telescope_harpoon = require "custom.telescope_harpoon"
+      local actions = require "telescope.actions"
 
       conf.defaults.mappings.i = {
         ["<TAB>"] = telescope_harpoon.mark_file,
+        ["<C-a>"] = actions.cycle_previewers_prev,
+        ["<C-s>"] = actions.cycle_previewers_next,
       }
+
+      conf.pickers = {
+        git_commits = {
+          previewer = require('telescope.previewers').new_termopen_previewer({
+            get_command = function(entry)
+              local commit = entry.value
+              -- Use git show to include author, date, and the diff
+              return {
+                'git', '--no-pager', 'show',
+                '--pretty=format:Commit: %H%nAuthor: %an <%ae>%nDate:   %ad%n%n%s%n%b',
+                commit,
+              }
+            end,
+          }),
+        },
+      }
+
       return conf
     end,
   },
@@ -156,7 +176,6 @@ return {
 
         -- php stuff
         "phpactor",
-        "twiggy_language_server",
         "twig-cs-fixer",
 
         -- c/cpp stuff
