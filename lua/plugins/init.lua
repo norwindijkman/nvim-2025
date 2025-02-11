@@ -13,10 +13,9 @@ return {
     end,
   },
 
-
   {
     "lukas-reineke/indent-blankline.nvim",
-    enabled = false
+    enabled = false,
   },
 
   {
@@ -34,17 +33,19 @@ return {
 
       conf.pickers = {
         git_commits = {
-          previewer = require('telescope.previewers').new_termopen_previewer({
+          previewer = require("telescope.previewers").new_termopen_previewer {
             get_command = function(entry)
               local commit = entry.value
               -- Use git show to include author, date, and the diff
               return {
-                'git', '--no-pager', 'show',
-                '--pretty=format:Commit: %H%nAuthor: %an <%ae>%nDate:   %ad%n%n%s%n%b',
+                "git",
+                "--no-pager",
+                "show",
+                "--pretty=format:Commit: %H%nAuthor: %an <%ae>%nDate:   %ad%n%n%s%n%b",
                 commit,
               }
             end,
-          }),
+          },
         },
       }
 
@@ -89,18 +90,19 @@ return {
   {
     "lewis6991/gitsigns.nvim",
     event = "User FilePost",
-    opts = function()
-      local conf = require "nvchad.configs.gitsigns"
-      conf.signs = {
-        add = { text = "󰙴" },
-        change = { text = "󰏫" },
-        delete = { text = "-" },
-        topdelete = { text = "‾" },
-        changedelete = { text = "~" },
-        untracked = { text = "󰙴" },
+    config = function()
+      require("gitsigns").setup {
+        current_line_blame = true,
+        signs_staged_enable = true,
+        signs_staged = {
+          add = { text = "󰙴" },
+          change = { text = "󰏫" },
+          delete = { text = "-" },
+          topdelete = { text = "‾" },
+          changedelete = { text = "~" },
+          untracked = { text = "󰙴" },
+        },
       }
-      conf.current_line_blame = true
-      return conf
     end,
   },
 
