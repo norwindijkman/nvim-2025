@@ -7,18 +7,16 @@ M.mark_file = function(tb)
   actions.drop_all(tb)
   actions.add_selection(tb)
   telescope_utils.map_selections(tb, function(selection)
-    local file = selection[0]
+    local file = selection[0] or selection
     vim.print(selection)
-    vim.print(selection[1])
 
     -- This lets it work with live grep picker
     if selection.filename then
       file = selection.filename
-    end
 
     -- this lets it work with git status picker
-    if selection.value then
-      file = selection.filename
+    elseif selection.value then
+      file = selection.value
     end
 
     local harpoon = require("harpoon")

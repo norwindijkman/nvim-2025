@@ -29,14 +29,14 @@ map('n', ']c', function()
   if vim.wo.diff then
     vim.cmd.normal({']c', bang = true})
   else
-    require('gitsigns').nav_hunk('next')
+    require('gitsigns').nav_hunk('next', { target = 'all' })
   end
 end)
 map('n', '[c', function()
   if vim.wo.diff then
     vim.cmd.normal({'[c', bang = true})
   else
-    require('gitsigns').nav_hunk('prev')
+    require('gitsigns').nav_hunk('prev', { target = 'all' })
   end
 end)
 
@@ -162,6 +162,10 @@ map("n", "<leader>0", function()
   local harpoon = require "harpoon"
   harpoon:list():next()
 end, { desc = "harpoon select next" })
+map({ "n", "i" }, "<leader>ch", function()
+  local harpoon = require "harpoon"
+  harpoon:list():clear()
+end, { desc = "harpoon clear" })
 
 -- Tabufline
 map("n", "<leader>X", ":BufCloseOther<CR>", { desc = "Close other buffers" })

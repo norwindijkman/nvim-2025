@@ -47,6 +47,13 @@ return {
             end,
           },
         },
+        git_status = {
+          mappings = {
+            i = {
+              ["<TAB>"] = telescope_harpoon.mark_file,
+            },
+          },
+        },
       }
 
       return conf
