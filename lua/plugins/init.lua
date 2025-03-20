@@ -127,6 +127,7 @@ return {
         "tsx",
         "svelte",
         "c",
+        "c_sharp",
         "php",
         "twig",
         "markdown",
@@ -179,6 +180,7 @@ return {
         "svelte-language-server",
         "deno",
         "prettier",
+        "marksman",
 
         -- java stuff
         "jdtls",
@@ -190,6 +192,9 @@ return {
         -- c/cpp stuff
         "clangd",
         "clang-format",
+
+        -- c# stuff
+        "omnisharp",
       },
     },
   },

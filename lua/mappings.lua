@@ -22,25 +22,26 @@ vim.keymap.set("v", "p", '"+p', { noremap = true })
 vim.keymap.set("v", "P", '"+P', { noremap = true })
 
 -- Operator-pending mode mappings (for yanking with motions)
-vim.keymap.set("o", "y", '"+y', { noremap = true })
+vim.keymap.set("o", "y", '"+y', { noremap = true }) 
+
 
 -- GitSigns navigation
-map('n', ']c', function()
+map("n", "]c", function()
   if vim.wo.diff then
-    vim.cmd.normal({']c', bang = true})
+    vim.cmd.normal { "]c", bang = true }
   else
-    require('gitsigns').nav_hunk('next', { target = 'all' })
+    require("gitsigns").nav_hunk("next", { target = "all" })
   end
 end)
-map('n', '[c', function()
+map("n", "[c", function()
   if vim.wo.diff then
-    vim.cmd.normal({'[c', bang = true})
+    vim.cmd.normal { "[c", bang = true }
   else
-    require('gitsigns').nav_hunk('prev', { target = 'all' })
+    require("gitsigns").nav_hunk("prev", { target = "all" })
   end
 end)
 
--- nvchad ui term 
+-- nvchad ui term
 map({ "n", "t" }, "<A-/>", function()
   require("nvchad.term").toggle {
     id = "floatTerm",
@@ -50,7 +51,7 @@ map({ "n", "t" }, "<A-/>", function()
       row = 0,
       col = 0,
       width = 1,
-      height = .95,
+      height = 0.95,
       border = "none",
     },
   }
@@ -64,7 +65,7 @@ map({ "n", "t" }, "<A-.>", function()
       row = 0,
       col = 0,
       width = 1,
-      height = .95,
+      height = 0.95,
       border = "none",
     },
   }
@@ -78,7 +79,7 @@ map({ "n", "t" }, "<A-,>", function()
       row = 0,
       col = 0,
       width = 1,
-      height = .95,
+      height = 0.95,
       border = "none",
     },
   }
