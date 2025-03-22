@@ -22,8 +22,19 @@ vim.keymap.set("v", "p", '"+p', { noremap = true })
 vim.keymap.set("v", "P", '"+P', { noremap = true })
 
 -- Operator-pending mode mappings (for yanking with motions)
-vim.keymap.set("o", "y", '"+y', { noremap = true }) 
+vim.keymap.set("o", "y", '"+y', { noremap = true })
 
+local paste_inline = function()
+  local content = vim.fn.getreg("+")  -- Get content of `+` register
+  content = content:gsub("\n$", "")  -- Remove the trailing newline (if any)
+  vim.fn.setreg("z", content)  -- Set `z` register with modified content
+  vim.api.nvim_put({ vim.fn.getreg("z") }, "c", true, true)  -- Paste inline from `z`
+end
+
+vim.keymap.set("n", "<leader>ps", paste_inline, { noremap = true, silent = true })
+vim.keymap.set("i", "<C-v>", function()
+  paste_inline()
+end, { noremap = true, silent = true })
 
 -- GitSigns navigation
 map("n", "]c", function()

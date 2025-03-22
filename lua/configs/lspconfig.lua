@@ -6,7 +6,7 @@ nvlsp.defaults() -- loads nvchad's defaults
 local servers = {
   "html",
   "cssls",
-  "tsserver",
+  "ts_ls",
   "clangd",
   "phpactor",
   "marksman",
