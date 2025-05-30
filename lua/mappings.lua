@@ -174,7 +174,7 @@ map("n", "<leader>0", function()
   local harpoon = require "harpoon"
   harpoon:list():next()
 end, { desc = "harpoon select next" })
-map({ "n", "i" }, "<leader>ch", function()
+map({ "n", "i" }, "<leader>jh", function()
   local harpoon = require "harpoon"
   harpoon:list():clear()
 end, { desc = "harpoon clear" })

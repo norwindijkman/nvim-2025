@@ -163,6 +163,9 @@ vim.api.nvim_create_user_command('PrevFile', go_to_prev_file_in_dir_wrapper, {})
 
 vim.o.scrolloff = 999
 
+vim.o.laststatus = 2
+vim.o.cmdheight = 1
+
 local function closeOtherBufs (c_buf)
   for _, buf in ipairs(vim.t.bufs) do
     if buf ~=  c_buf then
