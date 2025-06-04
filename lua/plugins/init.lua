@@ -176,7 +176,8 @@ return {
         -- web dev stuff
         "css-lsp",
         "html-lsp",
-        "typescript-language-server",
+        "ts_ls",
+        "sonarlint-language-server",
         "svelte-language-server",
         "deno",
         "prettier",
@@ -198,6 +199,30 @@ return {
       },
     },
   },
+
+  -- {
+  --   url = "https://gitlab.com/schrieveslaach/sonarlint.nvim",
+  --   ft = { "typescriptreact" },
+  --   dependencies = {
+  --     "williamboman/mason.nvim",
+  --   },
+  --   config = function()
+  --     require("sonarlint").setup {
+  --       server = {
+  --         cmd = {
+  --           vim.fn.expand "$MASON/bin/sonarlint-language-server",
+  --           "-stdio",
+  --           "-analyzers",
+  --           vim.fn.expand "$MASON/share/sonarlint-analyzers/sonarjs.jar",
+  --           vim.fn.expand "$MASON/share/sonarlint-analyzers/sonarhtml.jar",
+  --         },
+  --       },
+  --       filetypes = {
+  --         "typescriptreact",
+  --       },
+  --     }
+  --   end,
+  -- },
 
   {
     "L3MON4D3/LuaSnip",
