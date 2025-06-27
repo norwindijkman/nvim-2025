@@ -205,3 +205,6 @@ map("n", "<leader>lx", function()
     underline = isLspDiagnosticsVisible,
   }
 end)
+
+map("n", "<leader>tp", ":TogglePascalSnakeNormalMode<CR>", { desc = "Toggle Pascal / Snake case", silent = true })
+map('v', '<leader>tp', [[:<C-u>TogglePascalSnake<CR>]], { desc = "Toggle Pascal / Snake case", silent = true })
