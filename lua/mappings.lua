@@ -206,5 +206,5 @@ map("n", "<leader>lx", function()
   }
 end)
 
-map("n", "<leader>tp", ":TogglePascalSnakeNormalMode<CR>", { desc = "Toggle Pascal / Snake case", silent = true })
-map('v', '<leader>tp', [[:<C-u>TogglePascalSnake<CR>]], { desc = "Toggle Pascal / Snake case", silent = true })
+map("n", "<leader>tp", ":ToggleCamelSnakeNormalMode<CR>", { desc = "Toggle Camel / Snake case", silent = true })
+map('v', '<leader>tp', [[:<C-u>ToggleCamelSnake<CR>]], { desc = "Toggle Camel / Snake case", silent = true })

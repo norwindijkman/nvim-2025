@@ -178,7 +178,7 @@ vim.api.nvim_create_user_command("BufCloseOther", function()
   closeOtherBufs(vim.api.nvim_get_current_buf())
 end, {})
 
-vim.api.nvim_create_user_command('TogglePascalSnake', function()
+vim.api.nvim_create_user_command('ToggleCamelSnake', function()
   local bufnr = 0
 
   -- Get visual selection positions (regardless of mode)
@@ -197,10 +197,14 @@ vim.api.nvim_create_user_command('TogglePascalSnake', function()
 
   local lines = vim.api.nvim_buf_get_lines(bufnr, start_row, end_row + 1, false)
 
-  local function to_pascal_case(str)
-    return (str:gsub("(_%w)", function(s)
+  local function to_camel_case(str)
+    -- Convert snake_case to camelCase
+    local camel = str:gsub("(_%w)", function(s)
       return s:sub(2,2):upper()
-    end):gsub("^%l", string.upper):gsub("_", ""))
+    end):gsub("^%u", string.lower) -- first letter lowercase instead of uppercase
+
+    -- Remove underscores if any left
+    return camel:gsub("_", "")
   end
 
   local function to_snake_case(str)
@@ -229,11 +233,11 @@ vim.api.nvim_create_user_command('TogglePascalSnake', function()
 
     local transformed
     if selection:find("_") then
-      transformed = to_pascal_case(selection)
+      transformed = to_camel_case(selection)
     elseif selection:find("%u") then
       transformed = to_snake_case(selection)
     else
-      transformed = to_pascal_case(selection)
+      transformed = to_camel_case(selection)
     end
 
     local new_line = line:sub(1, start_col) .. transformed .. line:sub(end_col + 2)
@@ -251,11 +255,11 @@ vim.api.nvim_create_user_command('TogglePascalSnake', function()
       if selection ~= "" then
         local transformed
         if selection:find("_") then
-          transformed = to_pascal_case(selection)
+          transformed = to_camel_case(selection)
         elseif selection:find("%u") then
           transformed = to_snake_case(selection)
         else
-          transformed = to_pascal_case(selection)
+          transformed = to_camel_case(selection)
         end
 
         local new_line = line:sub(1, s_col) .. transformed .. line:sub(e_col + 2)
@@ -263,17 +267,21 @@ vim.api.nvim_create_user_command('TogglePascalSnake', function()
       end
     end
   end
-end, { desc = "Toggle between PascalCase and snake_case for visual selection" })
+end, { desc = "Toggle between camelCase and snake_case for visual selection" })
 
-vim.api.nvim_create_user_command('TogglePascalSnakeNormalMode', function(opts)
+vim.api.nvim_create_user_command('ToggleCamelSnakeNormalMode', function(opts)
   local start_line = opts.line1
   local end_line = opts.line2
   local lines = vim.api.nvim_buf_get_lines(0, start_line - 1, end_line, false)
 
-  local function to_pascal_case(str)
-    return (str:gsub("(_%w)", function(s)
+  local function to_camel_case(str)
+    -- Convert snake_case to camelCase
+    local camel = str:gsub("(_%w)", function(s)
       return s:sub(2,2):upper()
-    end):gsub("^%l", string.upper):gsub("_", ""))
+    end):gsub("^%u", string.lower) -- first letter lowercase instead of uppercase
+
+    -- Remove underscores if any left
+    return camel:gsub("_", "")
   end
 
   local function to_snake_case(str)
@@ -288,12 +296,12 @@ vim.api.nvim_create_user_command('TogglePascalSnakeNormalMode', function(opts)
   local transformed = {}
   for _, line in ipairs(lines) do
     if line:find("_") then
-      table.insert(transformed, to_pascal_case(line))
+      table.insert(transformed, to_camel_case(line))
     elseif line:find("%u") then
       table.insert(transformed, to_snake_case(line))
     else
-      -- Default to PascalCase if unsure
-      table.insert(transformed, to_pascal_case(line))
+      -- Default to camelCase if unsure
+      table.insert(transformed, to_camel_case(line))
     end
   end
 
