@@ -195,6 +195,22 @@ map("n", "<leader>u", function()
   end
 end, { desc = "Toggle tabufline" })
 
+--minimap
+vim.g.minimap_and_scrolbar_enabled = false
+map("n", "<leader>mm", function()
+  local codewindow = require('codewindow')
+  require('satellite')
+  if vim.g.minimap_and_scrolbar_enabled then
+    vim.cmd("SatelliteDisable")
+    codewindow.close_minimap()
+    vim.g.minimap_and_scrolbar_enabled = false
+  else
+    vim.cmd("SatelliteEnable")
+    codewindow.open_minimap()
+    vim.g.minimap_and_scrolbar_enabled = true
+  end
+end, { desc = "Close other buffers" })
+
 -- Disable ESLint LSP server and hide virtual text in Neovim
 -- Add this to your init.lua or init.vim file
 local isLspDiagnosticsVisible = true

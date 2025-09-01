@@ -6,6 +6,25 @@ return {
   },
 
   {
+    'gorbit99/codewindow.nvim',
+    config = function()
+      local codewindow = require('codewindow')
+      codewindow.setup {
+        screen_bounds = 'background',
+        window_border = 'none',
+      }
+    end,
+  },
+
+  {
+    'lewis6991/satellite.nvim',
+    config = function()
+      local satellite = require('satellite')
+      satellite.setup()
+    end,
+  },
+
+  {
     "neovim/nvim-lspconfig",
     config = function()
       require "configs.lspconfig"

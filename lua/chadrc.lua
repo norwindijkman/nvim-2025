@@ -5,16 +5,16 @@
 local M = {}
 
 M.base46 = {
-	theme = "gruvbox",
+	theme = "gruvchad",
 }
 
 M.ui = {
-	theme = "gruvbox",
+	theme = "gruvchad",
 
   statusline = {
     theme = "minimal",
     order = { "file", "git", "%=", "lsp_msg", "%=", "diagnostics", "lsp" },
-    enabled = true,
+    enabled = false,
   },
 
 	hl_override = {
@@ -42,11 +42,9 @@ function ToggleStatusbar()
     if M.ui.statusline.enabled then
         vim.o.laststatus = 2  -- Show the status bar
         vim.o.cmdheight = 1   -- Show the command line
-        os.execute("tmux set-option -g status on")  -- Show tmux status barIncS
     else
         vim.o.laststatus = 0  -- Hide the status bar
         vim.o.cmdheight = 0   -- Hide the command line
-        os.execute("tmux set-option -g status off")  -- Hide tmux status bar
     end
 end
 
