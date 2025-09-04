@@ -163,6 +163,8 @@ vim.api.nvim_create_user_command('PrevFile', go_to_prev_file_in_dir_wrapper, {})
 
 vim.o.scrolloff = 999
 
+-- disable statusbar after vim has loaded. The statusbar needs to start enabled, 
+-- otherwise it does not work properly
 vim.o.laststatus = 0
 vim.o.cmdheight = 0
 

@@ -14,7 +14,7 @@ M.ui = {
   statusline = {
     theme = "minimal",
     order = { "file", "git", "%=", "lsp_msg", "%=", "diagnostics", "lsp" },
-    enabled = false,
+    enabled = true,
   },
 
 	hl_override = {
@@ -37,9 +37,10 @@ M.ui = {
 vim.api.nvim_set_hl(0, "CurSearch", { bg = "#ff0000", fg = "#FFFFFF" })
 
 -- Function to toggle the status bar
+local statusbarVisible = false
 function ToggleStatusbar()
-    M.ui.statusline.enabled = not M.ui.statusline.enabled
-    if M.ui.statusline.enabled then
+    statusbarVisible = not statusbarVisible
+    if statusbarVisible then
         vim.o.laststatus = 2  -- Show the status bar
         vim.o.cmdheight = 1   -- Show the command line
     else
