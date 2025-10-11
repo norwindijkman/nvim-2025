@@ -147,12 +147,14 @@ return {
         "c",
         "c_sharp",
         "php",
+        "blade",
         "twig",
         "markdown",
         "markdown_inline",
         "dart",
         "java",
       },
+      automatic_installation = true,
       indent = {
         enable = true,
       },
@@ -186,6 +188,7 @@ return {
   {
     "williamboman/mason.nvim",
     opts = {
+      automatic_installation = true,
       ensure_installed = {
         -- lua stuff
         "lua-language-server",
@@ -207,6 +210,8 @@ return {
         -- php stuff
         "phpactor",
         "twig-cs-fixer",
+        "intelephense",
+        "blade",
 
         -- c/cpp stuff
         "clangd",

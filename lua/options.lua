@@ -309,3 +309,28 @@ vim.api.nvim_create_user_command('ToggleCamelSnakeNormalMode', function(opts)
 
   vim.api.nvim_buf_set_lines(0, start_line - 1, end_line, false, transformed)
 end, { range = true })
+
+
+-- turn errors into messages
+local orig_notify = vim.notify
+
+vim.notify = function(msg, level, opts)
+  if level == vim.log.levels.ERROR then
+    -- Show as a regular message instead of an error
+    vim.schedule(function()
+      vim.api.nvim_echo({{msg, "WarningMsg"}}, true, {})
+    end)
+  else
+    orig_notify(msg, level, opts)
+  end
+end
+
+-- Redirect error writes to normal echo
+vim.api.nvim_err_write = function(msg)
+  vim.schedule(function()
+    vim.api.nvim_echo({{msg, "WarningMsg"}}, true, {})
+  end)
+end
+
+vim.api.nvim_err_writeln = vim.api.nvim_err_write
+-- end of turn errors into messages

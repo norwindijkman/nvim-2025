@@ -13,6 +13,7 @@ local servers = {
   "svelte",
   "jdtls",
   "omnisharp",
+  "intelephense",
 }
 
 -- lsps with default config
