@@ -10,11 +10,11 @@ conform.setup({
   formatters_by_ft = {
     lua = { "stylua" },
     css = { "prettier" },
-    html = { "prettier" },
-    twig = { "prettier" },
+    html = { "prettier", "jsbeautify" }, -- run js-beautify after prettier
+    twig = { "prettier", "jsbeautify" },
     typescript = { "prettier" },
     typescriptreact = { "prettier" },
-    svelte = { "prettier" },
+    svelte = { "prettier", "jsbeautify" }, -- added js-beautify
   },
 
   formatters = {
@@ -27,6 +27,19 @@ conform.setup({
       },
       cwd = require("conform.util").root_file({ "package.json", ".prettierrc", ".prettierrc.json" }),
       stdin = true,
+    },
+    jsbeautify = {
+      command = "npx",
+      args = {
+        "js-beautify",
+        "--type",
+        "html",
+        "--wrap-attributes",
+        "force-expand-multiline", -- each attribute on its own line
+        "--end-with-newline",
+      },
+      stdin = true,
+      cwd = require("conform.util").root_file({ "package.json" }),
     },
   },
 })
