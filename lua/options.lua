@@ -65,9 +65,7 @@ local function make_recent()
       return
     end
   end
-  print(filepath)
-  local uri = 'file://' .. filepath
-  local timestamp = os.date("!%Y-%m-%dT%H:%M:%SZ")
+  local uri = 'file://' .. filepath  local timestamp = os.date("!%Y-%m-%dT%H:%M:%SZ")
   local dateCmd = "date --iso-8601=seconds"
   local gioCmd = "gio set -t string " .. filepath .. " metadata::recent-info $(" .. dateCmd .. ")"
 
@@ -111,6 +109,17 @@ local function make_recent()
   end
 end
 vim.api.nvim_create_user_command('MR', make_recent, {})
+
+local function git_status_live_grep()
+  local git_root = vim.fn.systemlist("git rev-parse --show-toplevel")[1]
+  if not git_root or git_root == "" then
+    vim.notify("Not in a git repository", vim.log.levels.WARN)
+    return
+  end
+  require('telescope.builtin').live_grep({ search_dirs = { git_root } })
+end
+
+vim.api.nvim_create_user_command('GitLiveGrep', git_status_live_grep, {})
 
 -- quickly navigte in the current buffer
 local function go_to_next_file_in_dir(n)

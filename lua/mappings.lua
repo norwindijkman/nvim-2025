@@ -128,6 +128,7 @@ map("v", "<S-A-l>", "16l", { desc = "Move right 16 lines in visual mode" })
 map("v", "<S-A-h>", "16h", { desc = "Move left 16 lines in visual mode" })
 
 map("n", "<Leader>cf", "<cmd>Telescope git_bcommits<CR>", { desc = "Git diff current file" })
+map("n", "<Leader>gw", "<cmd>GitLiveGrep<CR>", { desc = "Git diff live grep" })
 
 map("n", "<Leader>cn", "<cmd>CreateDateFile<CR>", { desc = "Create a new file with the current date" })
 map("n", "<leader>pp", "<cmd>GrepInNvimTreeFolder<CR>", { desc = "Grep in NvimTree folder" })
