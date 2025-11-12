@@ -131,6 +131,7 @@ map("n", "<Leader>cf", "<cmd>Telescope git_bcommits<CR>", { desc = "Git diff cur
 map("n", "<Leader>gw", "<cmd>GitLiveGrep<CR>", { desc = "Git diff live grep" })
 
 map("n", "<Leader>cn", "<cmd>CreateDateFile<CR>", { desc = "Create a new file with the current date" })
+map("n", "<Leader>ct", "<cmd>CreateTodoFile<CR>", { desc = "Create a new todo file for tomorrow" })
 map("n", "<leader>pp", "<cmd>GrepInNvimTreeFolder<CR>", { desc = "Grep in NvimTree folder" })
 
 map("n", "<Leader>]", "<cmd>NextFile<CR>", { desc = "Go to next file" })

@@ -34,6 +34,68 @@ local function create_date_file()
 end
 vim.api.nvim_create_user_command('CreateDateFile', create_date_file, {})
 
+-- Create a todo file for a given date (or tomorrow if none provided)
+local function create_todo_file()
+  -- Prompt user for a date in YYYY-MM-DD format
+  vim.ui.input({ prompt = "Enter date (YYYY-MM-DD) or leave empty for tomorrow: " }, function(input)
+    local target_time
+
+    if input == nil or input == "" then
+      -- No input, use tomorrow
+      target_time = os.time() + 24 * 60 * 60
+    else
+      -- Try to parse input as YYYY-MM-DD
+      local year, month, day = input:match("(%d+)%-(%d+)%-(%d+)")
+      if year and month and day then
+        target_time = os.time({ year = tonumber(year), month = tonumber(month), day = tonumber(day), hour = 0 })
+      else
+        vim.notify("Invalid date format. Use YYYY-MM-DD.", vim.log.levels.ERROR)
+        return
+      end
+    end
+
+    -- Format dates
+    local date_str = os.date("%Y-%m-%d", target_time)
+    local weekday = os.date("%a", target_time)        -- e.g., "Mon"
+    local human_date = os.date("%d %b %Y", target_time) -- e.g., "29 Oct 2025"
+    local header_date = weekday .. " " .. human_date
+
+    local file_path = "~/softw/penguin/todo/todo-" .. date_str .. ".md"
+    local expanded_path = vim.fn.expand(file_path)
+
+    -- Check if file exists
+    if vim.fn.filereadable(expanded_path) == 0 then
+      -- File does not exist, create template
+      local template = {
+        "# Todo " .. header_date,
+        "",
+        "Home: ",
+        "Food: ",
+        "Project: ",
+        "Social: ",
+        "Work:",
+        "Sport:",
+        ""
+      }
+
+      local f = io.open(expanded_path, "w")
+      if f then
+        f:write(table.concat(template, "\n"))
+        f:close()
+      else
+        vim.notify("Error creating todo file: " .. expanded_path, vim.log.levels.ERROR)
+        return
+      end
+    end
+
+    -- Open the file
+    vim.api.nvim_command("edit " .. expanded_path)
+  end)
+end
+
+-- Create user command
+vim.api.nvim_create_user_command('CreateTodoFile', create_todo_file, {})
+
 -- nvim-tree live grep
 local function grep_in_nvim_tree_folder()
   local nimvTree = require "nvim-tree.api"
