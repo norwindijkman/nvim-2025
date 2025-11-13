@@ -96,6 +96,58 @@ map({ "n", "t" }, "<A-,>", function()
   }
 end, { desc = "terminal new horizontal term" })
 
+-- open in current buffer
+map({ "n", "t" }, "<A-?>", function()
+  local cwd = vim.fn.expand("%:h")
+  require("nvchad.term").toggle {
+    id = "floatTerm_cwd",
+    pos = "float",
+    float_opts = {
+      relative = "editor",
+      row = 0,
+      col = 0,
+      width = 1,
+      height = 0.95,
+      border = "none",
+    },
+    cmd = "cd " .. cwd .. " && $SHELL",
+  }
+end, { desc = "Terminal Toggle Floating term (buffer dir)" })
+
+map({ "n", "t" }, "<A->>", function()
+  local cwd = vim.fn.expand("%:h")
+  require("nvchad.term").toggle {
+    id = "vtoggleTerm_cwd",
+    pos = "float",
+    float_opts = {
+      relative = "editor",
+      row = 0,
+      col = 0,
+      width = 1,
+      height = 0.95,
+      border = "none",
+    },
+    cmd = "cd " .. cwd .. " && $SHELL",
+  }
+end, { desc = "terminal toggleable vertical term (buffer dir)" })
+
+map({ "n", "t" }, "<A-<>", function()
+  local cwd = vim.fn.expand("%:h")
+  require("nvchad.term").toggle {
+    id = "htoggleTerm_cwd",
+    pos = "float",
+    float_opts = {
+      relative = "editor",
+      row = 0,
+      col = 0,
+      width = 1,
+      height = 0.95,
+      border = "none",
+    },
+    cmd = "cd " .. cwd .. " && $SHELL",
+  }
+end, { desc = "terminal new horizontal term (buffer dir)" })
+
 map("n", "<C-c>", ":nohlsearch<CR><Esc>", { desc = "Exit" })
 map("v", "<C-c>", ":nohlsearch<CR><Esc>", { desc = "Exit" })
 map("i", "<C-c>", "<Esc>:nohlsearch<CR>", { desc = "Exit" })
@@ -103,6 +155,18 @@ map("c", "<C-c>", "<C-c>:nohlsearch<CR>", { desc = "Exit" })
 
 map("n", ";", ":", { desc = "CMD enter command mode" })
 map("n", "<C-n>", "<cmd> NvimTreeClose <CR>", { desc = "Close nvimtree" })
+map("n", "<leader>re", function()
+  local api = require("nvim-tree.api")
+  local cwd = vim.fn.getcwd()
+  vim.cmd("NvimTreeClose")
+  if api.tree.is_visible() then
+    api.tree.change_root(cwd)
+  else
+    api.tree.open({ path = cwd })
+  end
+  vim.cmd("NvimTreeOpen " .. cwd)
+end, { desc = "Open nvimtree in project root" })
+
 map("v", ">", ">gv", { desc = "Indent forward" })
 map("v", "<", "<gv", { desc = "Indent backward" })
 

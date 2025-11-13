@@ -1,8 +1,19 @@
+
 return {
   {
     "stevearc/conform.nvim",
     -- event = 'BufWritePre', -- uncomment for format on save
     opts = require "configs.conform",
+  },
+
+  {
+      "kylechui/nvim-surround",
+      version = "^3.0.0", -- Use for stability; omit to use `main` branch for the latest features
+      event = "VeryLazy",
+      config = function()
+          require("nvim-surround").setup({
+          })
+      end
   },
 
   {
@@ -34,6 +45,27 @@ return {
   {
     "lukas-reineke/indent-blankline.nvim",
     enabled = false,
+  },
+
+  {
+    dir = "~/.config/nvim/lua/custom/ai_manager",
+    dependencies = {
+      "nvim-telescope/telescope.nvim",
+      "nvim-tree/nvim-tree.lua",
+    },
+    -- Lazy-load on any of the keys used by the plugin
+    keys = {
+      "<leader>ai",
+      "<A-\\>",
+      "<A-]>",
+      "<A-[>",
+      "<A-|>",
+      "<A-}>",
+      "<A-{>",
+    },
+    config = function()
+      require("custom.ai_manager")
+    end,
   },
 
   {
@@ -75,24 +107,6 @@ return {
       }
 
       return conf
-    end,
-  },
-
-  {
-    "nvim-tree/nvim-tree.lua",
-    cmd = { "NvimTreeToggle", "NvimTreeFocus" },
-    opts = function()
-      local conf = require "nvchad.configs.nvimtree"
-      conf.actions = { open_file = { quit_on_open = true } }
-      conf.renderer.icons.glyphs.git = {
-        unstaged = "󰏫",
-        staged = "✓",
-        unmerged = "",
-        renamed = "󰏫",
-        untracked = "󰙴",
-        deleted = "",
-        ignored = "◌",
-      }
     end,
   },
 
@@ -161,23 +175,49 @@ return {
     },
   },
 
+  
   {
     "nvim-tree/nvim-tree.lua",
     cmd = { "NvimTreeToggle", "NvimTreeFocus" },
-    opts = function()
-      local conf = require "nvchad.configs.nvimtree"
-      conf.view.width = vim.o.columns
-      conf.actions.open_file.quit_on_open = true
-      conf.renderer.icons.glyphs.git = {
-        unstaged = "󰏫",
-        staged = "✓",
-        unmerged = "",
-        renamed = "󰏫",
-        untracked = "󰙴",
-        deleted = "",
-        ignored = "◌",
-      }
-    end,
+    opts = {
+      -- Prevent NvimTree from updating Neovim's cwd
+      update_cwd = false,
+      sync_root_with_cwd = false,
+      respect_buf_cwd = false,
+
+      -- Actions
+      actions = {
+        change_dir = {
+          enable = false,          -- stop <C-]> and - from changing cwd
+          restrict_above_cwd = false,
+        },
+        open_file = {
+          quit_on_open = true,
+        },
+      },
+
+      -- View
+      view = {
+        width = vim.o.columns,
+      },
+
+      -- Icons
+      renderer = {
+        icons = {
+          glyphs = {
+            git = {
+              unstaged = "󰏫",
+              staged = "✓",
+              unmerged = "",
+              renamed = "󰏫",
+              untracked = "󰙴",
+              deleted = "",
+              ignored = "◌",
+            },
+          },
+        },
+      },
+    },
   },
 
   {
