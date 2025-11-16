@@ -62,6 +62,8 @@ return {
       "<A-|>",
       "<A-}>",
       "<A-{>",
+      "<A-p>",
+      "<A-P>",
     },
     config = function()
       require("custom.ai_manager")
