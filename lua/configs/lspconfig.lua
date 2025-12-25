@@ -7,6 +7,7 @@ local servers = {
   "clangd",
   "phpactor",
   "marksman",
+  "terraformls",
   "svelte",
   "jdtls",
   "omnisharp",

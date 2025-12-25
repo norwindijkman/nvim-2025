@@ -15,6 +15,7 @@ conform.setup({
     typescript = { "prettier" },
     typescriptreact = { "prettier" },
     svelte = { "prettier", "jsbeautify" }, -- added js-beautify
+    terraform = { "terraform_fmt" },
   },
 
   formatters = {

@@ -169,7 +169,10 @@ return {
         "markdown_inline",
         "dart",
         "java",
-      },
+        "terraform",
+        "hcl",
+       },
+
       automatic_installation = true,
       indent = {
         enable = true,
@@ -255,8 +258,12 @@ return {
         "intelephense",
         "blade",
 
+        -- infra as code
+        "terraform-ls",
+
         -- c/cpp stuff
         "clangd",
+
         "clang-format",
 
         -- c# stuff
